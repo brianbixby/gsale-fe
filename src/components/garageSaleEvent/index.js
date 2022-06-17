@@ -55,7 +55,8 @@ function GarageSaleEvent(props) {
       )}
 
       <div>
-        <MapLeaflet coords={[{ lat: 47.609974, lng: -122.325264 }]} />;
+        <MapLeaflet coords={[{ lat: 47.609974, lng: -122.325264 }]} />
+        {/* props.currentGarageSaleEvent.vendors */}
       </div>
     </div>
   );

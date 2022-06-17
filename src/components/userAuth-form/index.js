@@ -111,8 +111,7 @@ class UserAuthForm extends React.Component {
           </div>
         )}
         <input
-          className={classToggler({ error: emailError })}
-          id="loginContainer"
+          className={classToggler({ loginContainer: true, error: emailError })}
           type="text"
           name="email"
           placeholder="Email Address"
@@ -123,8 +122,7 @@ class UserAuthForm extends React.Component {
         />
         <Tooltip message={emailError} show={focused === "email" || submitted} />
         <input
-          className={classToggler({ passwordError })}
-          id="loginContainer"
+          className={classToggler({ loginContainer: true, passwordError })}
           type="password"
           name="password"
           placeholder="Password"

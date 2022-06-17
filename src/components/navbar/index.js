@@ -141,14 +141,12 @@ function Navbar(props) {
           </div>
           {renderIf(
             props.userAuth,
-            <button
+            <Link to="/create">            <button
               id="createEventButton"
-              className="btn btn-outline-success my-2 my-sm-0 rounded-pill"
-              onClick={() => setGseFormDisplay(false)}
-            >
+              className="btn btn-outline-success my-2 my-sm-0 rounded-pill"            >
               {" "}
               Create Event
-            </button>
+            </button></Link>
           )}
           {renderIf(
             props.userProfile && props.userProfile.id,

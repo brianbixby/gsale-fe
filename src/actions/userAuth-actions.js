@@ -48,8 +48,8 @@ export const tokenSignInRequest = () => (dispatch) => {
     .set("Authorization", `Bearer ${token}`)
     .then((res) => {
       console.log("res.body: ", res.body);
-      //   dispatch(signIn(res.body));
-      //   localStorage.setItem('gSaleToken', JSON.stringify(res.body.token));
+        dispatch(signIn(res.body));
+        localStorage.setItem('gSaleToken', JSON.stringify(res.body.token));
       return true;
     })
     .catch((err) => {

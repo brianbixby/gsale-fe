@@ -64,7 +64,7 @@ function Home(props) {
 
   return (
     <div>
-      <MapLeaflet coords={props.garageSaleEvent} />;
+      <MapLeaflet coords={props.garageSaleEvent} />
     </div>
   );
 }
