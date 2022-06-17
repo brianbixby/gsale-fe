@@ -1,37 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { currentGarageSaleEventFetchRequest } from "../../actions/currentGarageSaleEvent-actions";
 import MapLeaflet from "../mapLeaflet";
 import { renderIf } from "../../lib/util";
 
-function GarageSaleEvent(props) {
+function GarageSaleEvent({currentGarageSaleEventFetch, currentGarageSaleEvent }) {
   const { garageSaleEventId } = useParams();
-  const [garageSaleEvent, setGarageSaleEvent] = useState({});
   let flag = 0;
   useEffect(() => {
     if (!flag) {
       flag++;
-      props
-        .currentGarageSaleEventFetch(garageSaleEventId)
-        .then((gse) => {
-          setGarageSaleEvent(gse);
-          console.log("gse: ", gse);
-        })
+        currentGarageSaleEventFetch(garageSaleEventId)
         .catch((err) => console.log("garageSaleEventFetch err: ", err));
     }
-  }, [props.currentGarageSaleEventFetch, garageSaleEventId]);
+  }, [flag, currentGarageSaleEventFetch, garageSaleEventId]);
 
   return (
     <div className="row justify-content-around">
       {renderIf(
-        garageSaleEvent && garageSaleEvent.eventName,
+        currentGarageSaleEvent && currentGarageSaleEvent.eventName,
         <div className="card text-center">
           <div className="card-header">Details</div>
           <div className="card-body">
             <h5 className="card-title text-muted">
-              {garageSaleEvent.eventName}
-              {garageSaleEvent.endTime}
+              {currentGarageSaleEvent.eventName}
+              {currentGarageSaleEvent.endTime}
             </h5>
             <p className="card-text">
               Just about everything must go! Electronics, Furniture,
@@ -39,15 +33,18 @@ function GarageSaleEvent(props) {
               and anything else that belongs in house that you can think of!
             </p>
             <h5 className="card-title text-muted">Address</h5>
-            <p className="card-text">1234 Main St Seattle, WA 98125</p>
-            <h5 className="card-title text-muted">Date</h5>
-            <p className="card-text">06/13/2022</p>
+            <p className="card-text">{currentGarageSaleEvent.address}</p>
+            <h5 className="card-title text-muted">Start Date</h5>
+            <p className="card-text">{currentGarageSaleEvent.startDate}</p>
             <h5 className="card-title text-muted">Time</h5>
-            <p className="card-text">9AM - 6PM</p>
+            <p className="card-text">{currentGarageSaleEvent.startDate}</p>
+            <h5 className="card-title text-muted">End Date</h5>
+            <p className="card-text">{currentGarageSaleEvent.endDate}</p>
+            <h5 className="card-title text-muted">Time</h5>
+            <p className="card-text">{currentGarageSaleEvent.endDate}</p>
             <h5 className="card-title text-muted">Categories</h5>
             <p className="card-text">
-              Kitchenware, Furniture, CLothing, Electronics, Games, Sports, Pet,
-              Bath, Baby
+            {currentGarageSaleEvent.categories}
             </p>
           </div>
           <div className="card-footer text-muted">Map</div>
@@ -55,8 +52,9 @@ function GarageSaleEvent(props) {
       )}
 
       <div>
-        <MapLeaflet coords={[{ lat: 47.609974, lng: -122.325264 }]} />
-        {/* props.currentGarageSaleEvent.vendors */}
+        {renderIf(currentGarageSaleEvent && currentGarageSaleEvent.vendors,
+            <MapLeaflet coords={currentGarageSaleEvent.vendors} />
+        )}
       </div>
     </div>
   );
